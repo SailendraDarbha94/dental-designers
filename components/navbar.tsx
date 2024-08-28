@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -14,19 +15,48 @@ import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { getAuth, signOut } from "firebase/auth";
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
   GithubIcon,
-  DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
   Logo,
+  PortfolioIcon,
 } from "@/components/icons";
+import app from "@/config/firebase";
+import { ToastContext } from "@/providers/ToastContextProvider";
 
 export const Navbar = () => {
+  const router = useRouter();
+  const { toast } = useContext(ToastContext);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const logoutUser = async () => {
+    setLoading(true);
+    const auth = getAuth(app);
+
+    try {
+      await signOut(auth);
+      toast({
+        message: `User Signed Out`,
+        type: "success",
+      });
+      setLoading(false);
+      router.push("/");
+    } catch (err) {
+      setLoading(false);
+      toast({
+        message: `${JSON.stringify(err)}`,
+        type: "error",
+      });
+    }
+  };
+
   const searchInput = (
     <Input
       aria-label="Search"
@@ -54,7 +84,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">Fun Stats</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -63,7 +93,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
                 href={item.href}
@@ -72,6 +102,15 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
+          <Button
+            className="h-6 hover:bg-red-500 hover:text-white"
+            color="danger"
+            radius="full"
+            variant="bordered"
+            onPress={logoutUser}
+          >
+            Logout
+          </Button>
         </ul>
       </NavbarContent>
 
@@ -80,11 +119,12 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
+          <Link
+            isExternal
+            aria-label="Portfolio"
+            href={siteConfig.links.portfolio}
+          >
+            <PortfolioIcon />
           </Link>
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />

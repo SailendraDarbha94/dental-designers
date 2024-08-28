@@ -1,20 +1,16 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Stat Tracker",
+  name: "Fun Stats",
   description: "Analyse your sports performance statistics the fun way",
   navItems: [
     {
       label: "Home",
-      href: "/",
+      href: "/home",
     },
     {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Profile",
+      href: "/profile",
     },
     {
       label: "Blog",
@@ -27,32 +23,20 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
+      label: "Home",
+      href: "/home",
+    },
+    {
       label: "Profile",
       href: "/profile",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Blog",
+      href: "/blog",
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
+      label: "About",
+      href: "/about",
     },
     {
       label: "Logout",
@@ -60,7 +44,10 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
+    signUp: "/auth/sign-up",
+    signIn: "/auth/sign-in",
+    portfolio: "https://www.sailendradarbha.fyi/",
+    github: "https://github.com/SailendraDarbha94",
     twitter: "https://twitter.com/getnextui",
     docs: "https://nextui.org",
     discord: "https://discord.gg/9b6yyZKmH4",

@@ -3,7 +3,7 @@ import * as React from "react";
 import { IconSvgProps } from "@/types";
 
 export const Logo: React.FC<IconSvgProps> = ({
-  size = 36,
+  size = 24,
   width,
   height,
   ...props
@@ -11,18 +11,46 @@ export const Logo: React.FC<IconSvgProps> = ({
   <svg
     fill="none"
     height={size || height}
-    viewBox="0 0 32 32"
     width={size || width}
     {...props}
+    viewBox="0 0 64 64"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <path
-      clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
+    <g fill="#333">
+      <path d="M0 0h4v64H0z" />
+      <path d="M0 60h64v4H0z" />
+    </g>
+    <path fill="#fb4f00" d="M38.7 60h12V6.7L38.7 20z" />
+    <path fill="#5c750a" d="M21.3 60h12V20l-12 13.3z" />
+    <path fill="#106995" d="M4 60h12V33.3L4 46.7z" />
+    <path fill="#9aca0a" d="M33.3 20h13.3v40H33.3z" />
+    <path fill="#21adf1" d="M16 33.3h13.3V60H16z" />
+    <path fill="#fc9100" d="M50.7 6.7H64V60H50.7z" />
   </svg>
 );
+
+export const PortfolioIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      className=" rounded-full px-0.5 dark:bg-white"
+      height={size || height}
+      viewBox="0 0 32 32"
+      //color="white"
+      width={size || width}
+      {...props}
+    >
+      <path
+        //fill="#ffffff"
+        d="M26.047 12.197c-1.828 0-2.844 1.355-3.057 2.824h6.147c-.167-1.401-1.157-2.819-3.089-2.819zm-3.011 4.83c.313 1.541 1.589 2.624 3.376 2.624c.963 0 2.359-.359 3.176-1.219l1.568 1.803c-1.416 1.479-3.536 1.901-4.984 1.901c-3.521 0-6.265-2.543-6.265-6.147c0-3.375 2.525-6.156 6.093-6.156c3.448 0 6 2.64 6 6.136v1.02h-8.964zm-8.651 5.104v-7.589c0-1.296-.579-2.047-1.787-2.047c-1.083 0-1.801.781-2.287 1.344v8.317H7.176v-7.599c0-1.303-.552-2.041-1.756-2.041c-1.083 0-1.833.781-2.291 1.344v8.317H-.002V10.01h3.136v1.531c.531-.615 1.733-1.677 3.609-1.677c1.667 0 2.796.699 3.301 2.12c.703-1.015 2-2.12 3.88-2.12c2.271 0 3.589 1.344 3.589 3.948v8.324h-3.136l.005-.011z"
+      />
+    </svg>
+  );
+};
 
 export const DiscordIcon: React.FC<IconSvgProps> = ({
   size = 24,
