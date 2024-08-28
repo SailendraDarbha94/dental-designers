@@ -34,6 +34,10 @@ const Page = () => {
         .then((cb) => {
           console.log(cb);
           if (cb.user) {
+            toast({
+              message: "User Signed In! Redirecting",
+              type: "success",
+            });
             setTimeout(() => {
               router.push("/home");
             }, 1000);

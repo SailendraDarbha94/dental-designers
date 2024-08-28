@@ -9,10 +9,6 @@ export const siteConfig = {
       href: "/home",
     },
     {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
       label: "Blog",
       href: "/blog",
     },
@@ -27,20 +23,12 @@ export const siteConfig = {
       href: "/home",
     },
     {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
       label: "Blog",
       href: "/blog",
     },
     {
       label: "About",
       href: "/about",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
     },
   ],
   links: {

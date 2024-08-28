@@ -15,8 +15,8 @@ import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { getAuth, signOut } from "firebase/auth";
-import { useContext, useState } from "react";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
@@ -30,15 +30,21 @@ import {
 } from "@/components/icons";
 import app from "@/config/firebase";
 import { ToastContext } from "@/providers/ToastContextProvider";
+import { User } from "@/config/interfaces";
 
 export const Navbar = () => {
   const router = useRouter();
   const { toast } = useContext(ToastContext);
   const [loading, setLoading] = useState<boolean>(false);
+  const auth = getAuth(app);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user: User | any) => setUser(user));
+  }, []);
 
   const logoutUser = async () => {
     setLoading(true);
-    const auth = getAuth(app);
 
     try {
       await signOut(auth);
@@ -102,15 +108,28 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
-          <Button
-            className="h-6 hover:bg-red-500 hover:text-white"
-            color="danger"
-            radius="full"
-            variant="bordered"
-            onPress={logoutUser}
-          >
-            Logout
-          </Button>
+          {user ? (
+            <div>
+              <Button
+                className="h-6 hover:bg-red-500 hover:text-white"
+                color="danger"
+                radius="full"
+                variant="bordered"
+                onPress={logoutUser}
+              >
+                Logout
+              </Button>
+              <Button
+                className="h-6 hover:bg-blue-600 hover:text-white ml-2"
+                color="primary"
+                radius="full"
+                variant="bordered"
+                onPress={() => router.push("/profile")}
+              >
+                Profile
+              </Button>
+            </div>
+          ) : null}
         </ul>
       </NavbarContent>
 
@@ -131,7 +150,7 @@ export const Navbar = () => {
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
         <NavbarItem className="hidden md:flex">
           <Button
             isExternal
@@ -162,9 +181,9 @@ export const Navbar = () => {
               <Link
                 color={
                   index === 2
-                    ? "primary"
+                    ? "foreground"
                     : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
+                      ? "foreground"
                       : "foreground"
                 }
                 href="#"
@@ -174,6 +193,22 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+          {user ? (
+            <div>
+              <NavbarMenuItem
+                className="mt-2"
+                onClick={() => router.push("/profile")}
+              >
+                Profile
+              </NavbarMenuItem>
+              <NavbarMenuItem
+                className="text-red-600 mt-2"
+                onClick={logoutUser}
+              >
+                Logout
+              </NavbarMenuItem>
+            </div>
+          ) : null}
         </div>
       </NavbarMenu>
     </NextUINavbar>
