@@ -5,7 +5,7 @@ This is a template for creating applications using Next.js 14 (app directory) an
 [Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
 
 ## Technologies Used
-
+bla bla bla
 - [Next.js 14](https://nextjs.org/docs/getting-started)
 - [NextUI v2](https://nextui.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
